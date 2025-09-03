@@ -18,12 +18,17 @@ player_horse["name"] = input("Vad ska din häst heta?")
 print("Din häst har olika stats som du kommer ge till den!") 
 print("6 per stat är max och du har 8 stat points att ge ut")
 print("Vad väljer du?")
+
+def input_clamp(stat_name, prompt, clamp = 6) -> int:
+    while player_horse[stat_name] < 1 or player_horse[stat_name] > clamp:
+            player_horse[stat_name] = input_int(prompt)
+
 stats_ok = False
 while stats_ok == False:
-    while player_horse["speed"] < 1 or player_horse["speed"] > 6:
-            player_horse["speed"] = input_int("Hur snabb är din häst?")
-    while player_horse["agility"] < 1 or player_horse["agility"] > 6:
-            player_horse["agility"] = input_int("Hur länge orkar din häst springa?")
+    input_clamp("speed", "Hur snabb är din häst?(1-6)")
+    input_clamp("agility", "Hur länge orkar din häst springa?(1-6)")
+    input_prompt = f"Din häst har {player_horse['speed']} i speed och {player_horse['agility']} i agility. Det blir totalt {player_horse['speed'] + player_horse['agility']}. Stämmer det? (j/n)"
+    answer = input(input_prompt)
   
     if player_horse["speed"] + player_horse["agility"] == 8:
             stats_ok = True
@@ -71,3 +76,4 @@ for i in range(10):
     computer_steps += steps [1]
 
 print(f"Antal steg: player {player_steps}, computer {computer_steps}")
+
